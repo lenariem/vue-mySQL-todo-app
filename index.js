@@ -7,12 +7,13 @@ const PORT = process.env.PORT || 3000
 //to use folder public
 app.use(express.static(path.join(__dirname, 'public')))
 
-//routes
-app.use('/api/todo', todoRoutes)
 
 //to use index.html
 app.use((req, res, next) => {
     res.sendFile('/index.html')
 })
+
+//routes
+app.use('/api/todo', todoRoutes)
 
 app.listen(PORT)
