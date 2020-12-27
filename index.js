@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3000
 //to use folder public
 app.use(express.static(path.join(__dirname, 'public')))
 
+//to use body
+app.use(express.json())
+
 //routes
 app.use('/api/todo', todoRoutes)
 
