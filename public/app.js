@@ -24,13 +24,7 @@ new Vue({
         if (!title) {
           return
         }
-        /* this.todos.push({
-          title: title,
-          id: Math.random(),
-          done: false,
-          date: new Date()
-        }) */
-
+        
         fetch('/api/todo', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
@@ -44,10 +38,17 @@ new Vue({
             /* clean field after add todo */
             this.todoTitle = ''
           })
-          .catch(e => console.log(e))
+          .catch(err => console.log(err))
       },
       removeTodo(id) {
-        this.todos = this.todos.filter(t => t.id !== id)
+        fetch('/api/todo/' + id, {
+          method: 'delete'
+        })
+          .then(() => {
+            this.todos = this.todos.filter(item => item.id !== id)
+        })
+          .catch(err => console.log(err))
+        
       },
       completeTodo(id) {
         fetch('/api/todo/' + id, {
@@ -55,12 +56,12 @@ new Vue({
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({done: true})
         })
-        .then(res => res.json())
-        .then(({todo}) => {
-          const idx = this.todos.findIndex(item => item.id === todo.id)
-          this.todos[idx].updateAt = todo.updateAt
-        })
-        .catch(e => console.log(e))
+          .then(res => res.json())
+          .then(({todo}) => {
+            const idx = this.todos.findIndex(item => item.id === todo.id)
+            this.todos[idx].updateAt = todo.updateAt
+          })
+          .catch(err => console.log(err))
       }
     },
     filters: {
