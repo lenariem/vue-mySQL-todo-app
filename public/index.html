@@ -19,14 +19,15 @@
 <body>
 <div id="app" v-cloak>
   <v-app :dark="isDark">
-    <v-toolbar color="blue darken-4" dark>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+    <v-toolbar color="cyan darken-2" dark>
+      
       <v-toolbar-title class="headline">To-do list</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
+      <span>Change Background</span>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on }"> 
           <v-btn icon @click="show = !show" v-on="on">
             <v-icon v-model="isDark" @click="isDark = !isDark">{{ show ? 'check_circle' : 'check_circle_outline' }}
             </v-icon>
