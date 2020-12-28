@@ -48,6 +48,19 @@ new Vue({
       },
       removeTodo(id) {
         this.todos = this.todos.filter(t => t.id !== id)
+      },
+      completeTodo(id) {
+        fetch('/api/todo/' + id, {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({done: true})
+        })
+        .then(res => res.json())
+        .then(({todo}) => {
+          const idx = this.todos.findIndex(item => item.id === todo.id)
+          this.todos[idx].updateAt = todo.updateAt
+        })
+        .catch(e => console.log(e))
       }
     },
     filters: {
